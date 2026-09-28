@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ============================================================
+         GROUP ID  : Think of this as your "company/package" name.
+                     It's like the folder structure reversed.
+         ARTIFACT  : The name of your specific project/module.
+         VERSION   : The version of your project.
+    ============================================================ -->
+    <groupId>com.bank</groupId>
+    <artifactId>bank-transaction-system</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>Bank Transaction Management System</name>
+    <description>A JDBC + MySQL console-based banking application</description>
+
+    <properties>
+        <!-- Tell Maven we are writing Java 21 code -->
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <!-- ============================================================
+             MySQL JDBC Driver
+             ─────────────────
+             This is the BRIDGE between Java and MySQL.
+             JDBC is just a set of interfaces (Connection, Statement, etc.)
+             defined by Java. MySQL provides the ACTUAL implementation
+             through this driver JAR.
+
+             Without this dependency, Java has no idea how to talk to MySQL.
+        ============================================================ -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Plugin to create a runnable JAR with all dependencies bundled -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <!-- This tells Java which class has the main() method -->
+                            <mainClass>com.bank.BankApp</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
